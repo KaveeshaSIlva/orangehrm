@@ -9,10 +9,10 @@
  * @property bool        $isDefault              Type: boolean
  *  
  * @method string        getScope()              Type: string(255), primary key
- * @method bool          getIsDefault()          Type: boolean
+ * @method bool          getIsdefault()          Type: boolean
  *  
  * @method OAuthScope    setScope(string $val)   Type: string(255), primary key
- * @method OAuthScope    setIsDefault(bool $val) Type: boolean
+ * @method OAuthScope    setIsdefault(bool $val) Type: boolean
  *  
  * @package    orangehrm
  * @subpackage model
