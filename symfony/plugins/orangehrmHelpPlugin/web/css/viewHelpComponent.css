@@ -11,3 +11,7 @@
 svg.help-icon > path {
     fill: #5d5d5d;
 }
+
+.selected-article{
+    background-color: #E2E8E2;
+}
