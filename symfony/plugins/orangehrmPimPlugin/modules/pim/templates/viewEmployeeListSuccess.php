@@ -20,7 +20,15 @@
 
 <div class="box searchForm toggableForm" id="employee-information">
     <div class="head">
-        <h1><?php echo __("Employee Information") ?></h1>
+        <div style="background: #F3F3EB url(../images/h1-bg.png) left bottom repeat-x;color: #5d5d5d; border: 1px solid #dedede;border-top-left-radius:3px;border-top-right-radius: 3px;">
+            <h2 style="line-height: 32px;padding: 1px 15px;font-size: 18px;font-weight: normal"><?php echo __("Employee Information") ?>
+                <a href="<?php echo url_for('help/help');?>?label=<?php echo $moduleName;?>_<?php echo $routeActionName;?>" target="_blank">
+                    <span class="fa-lg fa-layers fa-fw" style="margin-left: 81%;margin-bottom: 5px">                        <i class="far fa-question-circle help-icon" style="margin-right: 35px;margin-bottom: 3px;font-weight: lighter"></i>
+                        <h2> Help</h2>
+                    </span>
+                </a>
+            </h2>
+        </div>
     </div>
     <div class="inner">
         <?php include_partial('global/flash_messages', array('prefix' => 'search')); ?>
@@ -34,11 +42,11 @@
                 </ol>
 
                 <input type="hidden" name="pageNo" id="pageNo" value="" />
-                <input type="hidden" name="hdnAction" id="hdnAction" value="search" />                 
+                <input type="hidden" name="hdnAction" id="hdnAction" value="search" />
 
                 <p>
                     <input type="button" id="searchBtn" value="<?php echo __("Search") ?>" name="_search" />
-                    <input type="button" class="reset" id="resetBtn" value="<?php echo __("Reset") ?>" name="_reset" />                    
+                    <input type="button" class="reset" id="resetBtn" value="<?php echo __("Reset") ?>" name="_reset" />
                 </p>
 
             </fieldset>
@@ -58,7 +66,7 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
-        
+
         var supervisors = <?php echo str_replace('&#039;', "'", $form->getSupervisorListAsJson()) ?>;
 
         $('#btnDelete').attr('disabled', 'disabled');

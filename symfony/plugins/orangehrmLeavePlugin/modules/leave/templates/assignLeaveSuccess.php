@@ -8,30 +8,39 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
 
 <div class="box" id="assign-leave">
     <div class="head">
-        <h1><?php echo __('Assign Leave') ?></h1>
+        <div style="background: #F3F3EB url(../images/h1-bg.png) left bottom repeat-x;color: #5d5d5d; border: 1px solid #dedede;border-top-left-radius:3px;border-top-right-radius: 3px;">
+            <h2 style="line-height: 32px;padding: 1px 15px;font-size: 18px;font-weight: normal"><?php echo __("Assign Leave") ?>
+                <a href="<?php echo url_for('help/help');?>?label=leave_assignLeave" target="_blank">
+                    <span class="fa-lg fa-layers fa-fw" style="margin-left: 88%;margin-bottom: 5px">
+                        <i class="far fa-question-circle help-icon" style="margin-right: 35px;margin-bottom: 3px;font-weight: 0px"></i>
+                        <h2> Help</h2>
+                    </span>
+                </a>
+            </h2>
+        </div>
     </div>
     <div class="inner">
         <?php include_partial('global/flash_messages'); ?>
         <?php if ($form->hasErrors()): ?>
                 <?php include_partial('global/form_errors', array('form' => $form)); ?>
-        <?php endif; ?>        
-<?php if (count($leaveTypes) > 0) : ?>        
+        <?php endif; ?>
+<?php if (count($leaveTypes) > 0) : ?>
         <form id="frmLeaveApply" name="frmLeaveApply" method="post" action="">
-            <fieldset>                
+            <fieldset>
                 <ol>
                     <?php echo $form->render(); ?>
                     <li class="required new">
                         <em>*</em> <?php echo __(CommonMessages::REQUIRED_FIELD); ?>
-                    </li>                      
-                </ol>                            
+                    </li>
+                </ol>
                 <p>
                     <input type="button" id="assignBtn" value="<?php echo __("Assign") ?>"/>
-                </p>                
-            </fieldset>            
+                </p>
+            </fieldset>
         </form>
-<?php endif ?>        
+<?php endif ?>
     </div> <!-- inner -->
-    
+
 </div> <!-- assign leave -->
 
 <!-- leave balance details HTML: Begins -->
@@ -47,7 +56,7 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
         <dt><?php echo __('Leave Type');?></dt>
         <dd id="popup_leave_type"></dd>
         <dt><?php echo __('As of Date');?></dt>
-        <dd id="balance_as_of"></dd>       
+        <dd id="balance_as_of"></dd>
      </dl>
     <table border="0" cellspacing="0" cellpadding="0" class="table">
         <tbody>
@@ -70,14 +79,14 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
                 <tr class="even">
                     <td><?php echo __('Pending Approval'); ?></td>
                     <td id="balance_pending">0.00</td>
-                </tr>                    
+                </tr>
         </tbody>
         <tfoot>
             <tr class="total">
                 <td><?php echo __('Balance');?></td>
                 <td id="balance_total">0.00</td>
             </tr>
-        </tfoot>          
+        </tfoot>
     </table>
   </div>
   <div class="modal-footer">
@@ -96,7 +105,7 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
         <dt><?php echo __('Employee Name');?></dt>
         <dd id="multiperiod_emp_name"></dd>
         <dt><?php echo __('Leave Type');?></dt>
-        <dd id="multiperiod_leave_type"></dd>        
+        <dd id="multiperiod_leave_type"></dd>
      </dl>
     <table border="0" cellspacing="0" cellpadding="0" class="table">
         <thead>
@@ -110,8 +119,8 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
         <tbody>
                 <tr class="odd">
                     <td></td>
-                </tr>                    
-        </tbody>       
+                </tr>
+        </tbody>
     </table>
   </div>
   <div class="modal-footer">
@@ -130,8 +139,8 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
   </div>
   <div class="modal-footer">
     <input type="button" class="btn" data-dismiss="modal" id="confirmOkButton" value="<?php echo __('Ok'); ?>" />
-    <input type="button" class="reset" data-dismiss="modal" id="confirmCancelButton" value="<?php echo __('Cancel'); ?>" />    
-  </div>    
+    <input type="button" class="reset" data-dismiss="modal" id="confirmCancelButton" value="<?php echo __('Cancel'); ?>" />
+  </div>
 </div>
 
 <?php include_component('core', 'ohrmPluginPannel', array('location' => 'assign-leave-javascript'))?>
@@ -144,7 +153,7 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
 ?>
 
 <script type="text/javascript">
-//<![CDATA[    
+//<![CDATA[
     var haveLeaveTypes = <?php echo count($leaveTypes) > 0 ? 'true' : 'false'; ?>;
     var datepickerDateFormat = '<?php echo $dateFormat; ?>';
     var displayDateFormat = '<?php echo $displayDateFormat; ?>';
@@ -161,6 +170,5 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
     var lang_Duration = "<?php echo __js('Duration');?>";
     var lang_StartDay = "<?php echo __js('Start Day');?>";
     var lang_EndDay = "<?php echo __js('End Day');?>";
-//]]>    
-</script>    
-    
+//]]>
+</script>

@@ -8,33 +8,42 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
 
 <div class="box" id="apply-leave">
     <div class="head">
-        <h1><?php echo __('Apply Leave') ?></h1>
+        <div style="background: #F3F3EB url(../images/h1-bg.png) left bottom repeat-x;color: #5d5d5d; border: 1px solid #dedede;border-top-left-radius:3px;border-top-right-radius: 3px;">
+            <h2 style="line-height: 32px;padding: 1px 15px;font-size: 18px;font-weight: normal"><?php echo __("Apply Leave") ?>
+                <a href="<?php echo url_for('help/help');?>?label=leave_assignLeave" target="_blank">
+                    <span class="fa-lg fa-layers fa-fw" style="margin-left: 88%;margin-bottom: 5px">
+                        <i class="far fa-question-circle help-icon" style="margin-right: 35px;margin-bottom: 3px;font-weight: 0px"></i>
+                        <h2> Help</h2>
+                    </span>
+                </a>
+            </h2>
+        </div>
     </div>
     <div class="inner">
         <?php include_partial('global/flash_messages'); ?>
         <?php if ($applyLeaveForm->hasErrors()): ?>
                 <?php include_partial('global/form_errors', array('form' => $applyLeaveForm)); ?>
-        <?php endif; ?>        
-        <?php if (count($leaveTypes) > 1) : ?>           
+        <?php endif; ?>
+        <?php if (count($leaveTypes) > 1) : ?>
         <form id="frmLeaveApply" name="frmLeaveApply" method="post" action="">
             <?php include_component('core', 'ohrmPluginPannel', array('location' => 'apply-leave-form-elements'))?>
-            <fieldset>                
+            <fieldset>
                 <ol>
                     <?php echo $applyLeaveForm->render(); ?>
                     <li class="required new">
                         <em>*</em> <?php echo __(CommonMessages::REQUIRED_FIELD); ?>
-                    </li>                      
-                </ol>            
-                
+                    </li>
+                </ol>
+
                 <p>
                     <input type="button" id="applyBtn" value="<?php echo __("Apply") ?>"/>
-                </p>                
+                </p>
             </fieldset>
-            
+
         </form>
-        <?php endif ?>           
+        <?php endif ?>
     </div> <!-- inner -->
-    
+
 </div> <!-- apply leave -->
 
 <!-- leave balance details HTML: Begins -->
@@ -66,14 +75,14 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
                 <tr class="even">
                     <td><?php echo __('Pending Approval'); ?></td>
                     <td id="balance_pending">0.00</td>
-                </tr>                    
+                </tr>
         </tbody>
         <tfoot>
             <tr class="total">
                 <td><?php echo __('Balance');?></td>
                 <td id="balance_total"></td>
             </tr>
-        </tfoot>     
+        </tfoot>
     </table>
   </div>
   <div class="modal-footer">
@@ -101,8 +110,8 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
         <tbody>
                 <tr class="odd">
                     <td></td>
-                </tr>                    
-        </tbody>       
+                </tr>
+        </tbody>
     </table>
   </div>
   <div class="modal-footer">
@@ -110,7 +119,7 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
   </div>
 </div>
     <script type="text/javascript">
-    //<![CDATA[        
+    //<![CDATA[
         var datepickerDateFormat = '<?php echo get_datepicker_date_format($sf_user->getDateFormat()); ?>';
         var displayDateFormat = '<?php echo str_replace('yy', 'yyyy', get_datepicker_date_format($sf_user->getDateFormat())); ?>';
         var leaveBalanceUrl = '<?php echo url_for('leave/getLeaveBalanceAjax');?>';
@@ -122,28 +131,28 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
         var lang_StartDay = "<?php echo __js('Start Day');?>";
         var lang_EndDay = "<?php echo __js('End Day');?>";
 
-        $(document).ready(function() {            
+        $(document).ready(function() {
 
             showTimeControls(false, false);
 
 
         updateLeaveBalance();
-        
+
         $('#applyleave_txtFromDate').change(function() {
             fromDateBlur($(this).val());
             updateLeaveBalance();
         });
-        
+
         $('#applyleave_txtToDate').change(function() {
             toDateBlur($(this).val());
             updateLeaveBalance();
-        });        
+        });
 
         $('#applyleave_partialDays').change(function() {
             handlePartialDayChange(true);
         });
-        
-        if(trim($("#applyleave_txtFromDate").val()) == displayDateFormat || trim($("#applyleave_txtToDate").val()) == displayDateFormat 
+
+        if(trim($("#applyleave_txtFromDate").val()) == displayDateFormat || trim($("#applyleave_txtToDate").val()) == displayDateFormat
             || trim($("#applyleave_txtFromDate").val()) == '' || trim($("#applyleave_txtToDate").val()) == '') {
                 showTimeControls(false, false);
         } else if (trim($("#applyleave_txtFromDate").val()) == trim($("#applyleave_txtToDate").val())) {
@@ -151,23 +160,23 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
         } else {
             showTimeControls(false, true);
         }
-        
+
         // Bind On change event of time elements
         $('select.timepicker').change(function() {
             fillTotalTime($(this));
-        });        
-        
+        });
+
         $('#applyleave_txtLeaveType').change(function() {
             updateLeaveBalance();
         });
-        
+
         function updateLeaveBalance() {
             var leaveType = $('#applyleave_txtLeaveType').val();
             var startDate = $('#applyleave_txtFromDate').val();
             var endDate =  $('#applyleave_txtToDate').val();
             $('#applyleave_leaveBalance').text('--');
-            $('#leaveBalance_details_link').remove();  
-            
+            $('#leaveBalance_details_link').remove();
+
             if (leaveType == "") {
                 //$('#applyleave_leaveBalance').text('--');
             } else {
@@ -178,7 +187,7 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
                     data: '&leaveType=' + leaveType + '&startDate=' + startDate + '&endDate=' + endDate,
                     dataType: 'json',
                     success: function(data) {
-                        
+
                         if (data.multiperiod == true) {
 
                             var leavePeriods = data.data;
@@ -189,7 +198,7 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
                             var linkCss = data.negative ? ' class="error" ' : "";
 
                             $('#applyleave_leaveBalance').text(balanceTxt)
-                            .append('<a href="#multiperiod_balance" data-toggle="modal" id="leaveBalance_details_link"' + linkCss + '>' + 
+                            .append('<a href="#multiperiod_balance" data-toggle="modal" id="leaveBalance_details_link"' + linkCss + '>' +
                                 linkTxt + '</a>');
 
                             var html = '';
@@ -198,14 +207,14 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
                             for (var i = 0; i < leavePeriodCount; i++) {
                                 var leavePeriod = leavePeriods[i];
                                 var days = leavePeriod['days'];
-                                var leavePeriodFirstRow = true;                        
+                                var leavePeriodFirstRow = true;
 
                                 for (var leaveDate in days) {
                                     if (days.hasOwnProperty(leaveDate)) {
                                         var leaveDateDetails = days[leaveDate];
 
-                                        rows++;                        
-                                        var css = rows % 2 ? "even" : "odd";                                
+                                        rows++;
+                                        var css = rows % 2 ? "even" : "odd";
 
                                         var thisLeavePeriod = leavePeriod['period'];
                                         var leavePeriodTxt = '';
@@ -214,25 +223,25 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
                                         if (leavePeriodFirstRow) {
                                             leavePeriodTxt = thisLeavePeriod[0] + ' - ' + thisLeavePeriod[1];
                                             leavePeriodInitialBalance = leavePeriod.balance.balance.toFixed(2);
-                                            leavePeriodFirstRow = false;                                    
+                                            leavePeriodFirstRow = false;
                                         }
 
                                         var balanceValue = leaveDateDetails.balance === false ? leaveDateDetails.desc : leaveDateDetails.balance.toFixed(2);
 
                                         html += '<tr class="' + css + '"><td>' + leavePeriodTxt + '</td><td class="right">' + leavePeriodInitialBalance +
-                                            '</td><td>' + leaveDate + '</td><td class="right">' + balanceValue + '</td></tr>';                                
+                                            '</td><td>' + leaveDate + '</td><td class="right">' + balanceValue + '</td></tr>';
                                     }
-                                }                    
+                                }
 
                                 $('div#multiperiod_balance table.table tbody').html('').append(html);
                             }
 
-                        } else {       
+                        } else {
                             var balance = data.balance;
                             var asAtDate = data.asAtDate;
                             var balanceDays = balance.balance;
                             $('#applyleave_leaveBalance').text(balanceDays.toFixed(2))
-                                .append('<a href="#balance_details" data-toggle="modal" id="leaveBalance_details_link">' + 
+                                .append('<a href="#balance_details" data-toggle="modal" id="leaveBalance_details_link">' +
                                     lang_details + '</a>');
 
                             $('#balance_as_of').text(asAtDate);
@@ -247,7 +256,7 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
                                 $('#container-adjustment').hide();
                             }
                         }
-                        $('#applyleave_leaveBalance').removeClass('loading_message');                         
+                        $('#applyleave_leaveBalance').removeClass('loading_message');
                     }
                 });
            }
@@ -295,7 +304,7 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
                 'applyleave[firstDuration][time][from]':{ required: false, validWorkShift : true, validTotalTime: true, validToTime: true},
                 'applyleave[firstDuration][time][to]':{ required: false,validTotalTime: true},
                 'applyleave[secondDuration][time][from]':{ required: false, validWorkShift : true, validTotalTime: true, validToTime: true},
-                'applyleave[secondDuration][time][to]':{ required: false,validTotalTime: true}                
+                'applyleave[secondDuration][time][to]':{ required: false,validTotalTime: true}
             },
             messages: {
                 'applyleave[txtLeaveType]':{
@@ -336,29 +345,29 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
                 },
                 'applyleave[secondDuration][time][to]':{
                     validTotalTime : "<?php echo __js(ValidationMessages::REQUIRED); ?>"
-                }                         
+                }
             }
         });
-        
+
         $.validator.addMethod("validTotalTime", function(value, element) {
             var valid = true;
-            
-           if ($(element).is(':visible')) { 
-                             
+
+           if ($(element).is(':visible')) {
+
                 if (value == '') {
                     valid = false;
                 }
             }
-            
+
             return valid;
         });
-        
+
         $.validator.addMethod("validWorkShift", function(value, element) {
-            
+
             var valid = true;
-            
-            if ($(element).is(':visible')) {            
-                var fromElement = $(element).parent('span').children('select.timepicker').first();    
+
+            if ($(element).is(':visible')) {
+                var fromElement = $(element).parent('span').children('select.timepicker').first();
                 var toElement = fromElement.siblings('select.timepicker').first();
 
                 var totalTime = getTotalTime(fromElement.val(), toElement.val());
@@ -367,14 +376,14 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
                     valid = false;
                 }
             }
-            return valid;            
-        });        
-        
+            return valid;
+        });
+
         $.validator.addMethod("validToTime", function(value, element) {
             var valid = true;
-            
-            if ($(element).is(':visible')) {            
-                var fromElement = $(element).parent('span').children('select.timepicker').first();    
+
+            if ($(element).is(':visible')) {
+                var fromElement = $(element).parent('span').children('select.timepicker').first();
                 var toElement = fromElement.siblings('select.timepicker').first();
 
                 var totalTime = getTotalTime(fromElement.val(), toElement.val());
@@ -383,8 +392,8 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
                 }
             }
 
-            return valid;  
-        });        
+            return valid;
+        });
 
         //Click Submit button
         $('#applyBtn').click(function(){
@@ -397,9 +406,9 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
             $('#frmLeaveApply').submit();
         });
     });
-    
+
     function showTimeControls(showOneDay, showMultiDay) {
-        
+
         var oneDayControlIds = ['applyleave_duration_duration'];
 
         $.each(oneDayControlIds, function(index, value) {
@@ -421,11 +430,11 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
             } else {
                 $('#' + value).parent('li').hide();
             }
-        }); 
+        });
 
         handlePartialDayChange($('#applyleave_partialDays').is(':visible'));
-    } 
-    
+    }
+
     function handlePartialDayChange(showMultiDay) {
 
         var partialDay = $('#applyleave_partialDays').val();
@@ -441,14 +450,14 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
             startLabel = partialDay === 'all' ? lang_Duration : lang_StartDay;
         } else if (partialDay === 'end') {
             $('#applyleave_firstDuration_duration').parent('li').hide();
-            $('#applyleave_secondDuration_duration').parent('li').show();   
+            $('#applyleave_secondDuration_duration').parent('li').show();
             endLabel = lang_EndDay;
         } else if (partialDay === 'start_end') {
             $('#applyleave_firstDuration_duration').parent('li').show();
-            $('#applyleave_secondDuration_duration').parent('li').show(); 
+            $('#applyleave_secondDuration_duration').parent('li').show();
             startLabel = lang_StartDay;
             endLabel = lang_EndDay;
-        } 
+        }
 
         if (startLabel) {
             $('#applyleave_firstDuration_duration').parent('li').children('label:first-child').text(startLabel);
@@ -457,11 +466,11 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
             $('#applyleave_secondDuration_duration').parent('li').children('label:first-child').text(endLabel);
         }
 
-    }    
+    }
 
     function fillTotalTime(element) {
 
-        var fromElement = element.parent('span').children('select.timepicker').first();    
+        var fromElement = element.parent('span').children('select.timepicker').first();
         var toElement = fromElement.siblings('select.timepicker').first();
         var durationElement = fromElement.siblings('input.time_range_duration').first();
 
@@ -483,20 +492,20 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
 
         var toTime = to.split(":");
         var todate = new Date();
-        todate.setHours(toTime[0],toTime[1]);        
+        todate.setHours(toTime[0],toTime[1]);
 
         var difference = todate - fromdate;
         var floatDeference	=	parseFloat(difference/3600000) ;
         total = Math.round(floatDeference*Math.pow(10,2))/Math.pow(10,2);
 
-        return total;        
+        return total;
     }
 
     function fromDateBlur(date) {
 
         var fromDateValue = trim(date);
         if (fromDateValue != displayDateFormat && fromDateValue != "") {
-            var singleDayLeaveRequest = false;        
+            var singleDayLeaveRequest = false;
             var toDateValue = trim($("#applyleave_txtToDate").val());
             if (validateDate(fromDateValue, datepickerDateFormat)) {
                 if (fromDateValue == toDateValue) {
@@ -531,6 +540,6 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
         } else {
             showTimeControls(false, false);
         }
-    }   
+    }
     //]]>
 </script>
