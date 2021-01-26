@@ -11,9 +11,9 @@ use_stylesheet(plugin_web_path('orangehrmLeavePlugin', 'css/assignLeaveSuccess.c
         <div style="background: #F3F3EB url(../images/h1-bg.png) left bottom repeat-x;color: #5d5d5d; border: 1px solid #dedede;border-top-left-radius:3px;border-top-right-radius: 3px;">
             <h2 style="line-height: 32px;padding: 1px 15px;font-size: 18px;font-weight: normal"><?php echo __("Assign Leave") ?>
                 <a href="<?php echo url_for('help/help');?>?label=leave_assignLeave" target="_blank">
-                    <span class="fa-lg fa-layers fa-fw" style="margin-left: 88%;margin-bottom: 5px">
-                        <i class="far fa-question-circle help-icon" style="margin-right: 35px;margin-bottom: 3px;font-weight: 0px"></i>
-                        <h2> Help</h2>
+                    <span style="font-size: 14px;margin-left: 79%">
+                        Help for this page
+                        <i class="far fa-question-circle help-icon" style="margin-left: 3px"></i>
                     </span>
                 </a>
             </h2>
